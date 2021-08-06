@@ -38,7 +38,7 @@ module Graphql
 
       def self.normalize_type_expression(type_expression, mode:, null: true)
         case type_expression
-        when "Text"
+        when "Text", "Citext"
           ["String", null]
         when "Decimal"
           ["Float", null]
@@ -46,6 +46,8 @@ module Graphql
           ["GraphQL::Types::ISO8601DateTime", null]
         when "Date"
           ["GraphQL::Types::ISO8601Date", null]
+        when "Json", "Jsonb", "Hstore"
+          ["GraphQL::Types::JSON", null]
         else
           super
         end
