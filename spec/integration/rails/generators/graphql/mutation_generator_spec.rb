@@ -15,7 +15,8 @@ class GraphQLGeneratorsMutationGeneratorTest < BaseGeneratorTest
     end
 
     FileUtils.cd(destination_root) do
-      `rails g graphql:install --directory #{directory}`
+      `mkdir #{directory}`
+      `touch #{directory}/dummy_schema.rb`
     end
   end
 
