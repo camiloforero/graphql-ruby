@@ -50,7 +50,7 @@ jobs:
           - gemfile: gemfiles/rails_7.0.gemfile
             ruby: 3.0
           - gemfile: gemfiles/rails_master.gemfile
-            ruby: 3.0
+            ruby: 3.1
           - gemfile: gemfiles/rails_master.gemfile
             ruby: truffleruby-head
     runs-on: ubuntu-latest
