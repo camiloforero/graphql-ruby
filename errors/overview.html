@@ -6,7 +6,7 @@
     
       <title>GraphQL - Errors in GraphQL</title>
     
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700" rel="stylesheet" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="icon" href="/graphql-ruby-icon.png">
   </head>
@@ -19,7 +19,7 @@
           </a>
           <a href="/getting_started">Get Started</a>
           <a href="/guides">Guides</a>
-          <a href="/api-doc/1.12.14/">API</a>
+          <a href="/api-doc/1.13.2/">API</a>
           <a href="https://tinyletter.com/graphql-ruby">Newsletter</a>
           <a href="https://github.com/rmosolgo/graphql-ruby">Source Code</a>
           <a href="https://graphql.pro">Upgrade to Pro</a>
@@ -45,6 +45,7 @@
 </p>
 
 
+
 <h1 class="guide-header">Errors in GraphQL</h1>
 <div class="guide-container">
   <p>There are a <em>lot</em> of different kinds of errors in GraphQL! In this guide, we’ll discuss some of the main categories and learn when they apply.</p>
@@ -61,6 +62,8 @@
 <p>Each error has a message, line, column and path.</p>
 
 <p>The validation rules are part of the GraphQL specification and built into GraphQL-Ruby, so there’s not really a way to customize this behavior, except to pass <code class="language-plaintext highlighter-rouge">validate: false</code> when executing a query, which skips validation altogether.</p>
+
+<p>You can configure your schema to stop validating after a certain number of errors by setting <a href="/api-doc/1.13.2/GraphQL/Schema#validate_max_errors-class_method" target="_blank" title="API docs for GraphQL::Schema.validate_max_errors"><code>Schema.validate_max_errors</code></a>. Also, you can add a timeout to this step with <a href="/api-doc/1.13.2/GraphQL/Schema#validate_timeout-class_method" target="_blank" title="API docs for GraphQL::Schema.validate_timeout"><code>Schema.validate_timeout</code></a>.</p>
 
 <h2 id="analysis-errors">Analysis Errors</h2>
 

@@ -6,7 +6,7 @@
     
       <title>GraphQL - Stable Relation Connections</title>
     
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700" rel="stylesheet" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="icon" href="/graphql-ruby-icon.png">
   </head>
@@ -19,7 +19,7 @@
           </a>
           <a href="/getting_started">Get Started</a>
           <a href="/guides">Guides</a>
-          <a href="/api-doc/1.12.14/">API</a>
+          <a href="/api-doc/1.13.2/">API</a>
           <a href="https://tinyletter.com/graphql-ruby">Newsletter</a>
           <a href="https://github.com/rmosolgo/graphql-ruby">Source Code</a>
           <a href="https://graphql.pro">Upgrade to Pro</a>
@@ -54,6 +54,7 @@
     </p>
   </div>
 
+
 <h1 class="guide-header">Stable Relation Connections</h1>
 <div class="guide-container">
   <p><code class="language-plaintext highlighter-rouge">GraphQL::Pro</code> includes a mechanism for serving <em>stable</em> connections for <code class="language-plaintext highlighter-rouge">ActiveRecord::Relation</code>s based on column values. If objects are created or destroyed during pagination, the list of items won’t be disrupted.</p>
@@ -64,7 +65,7 @@
 
 <h2 id="whats-the-difference">What’s the difference?</h2>
 
-<p>The default <a href="/api-doc/1.12.14/GraphQL/Pagination/ActiveRecordRelationConnection" target="_blank" title="API docs for GraphQL::Pagination::ActiveRecordRelationConnection"><code>GraphQL::Pagination::ActiveRecordRelationConnection</code></a> (which turns an <code class="language-plaintext highlighter-rouge">ActiveRecord::Relation</code> into a GraphQL-ready connection) uses <em>offset</em> as a cursor. This naive approach is sufficient for many cases, but it’s subject to a specific set of bugs.</p>
+<p>The default <a href="/api-doc/1.13.2/GraphQL/Pagination/ActiveRecordRelationConnection" target="_blank" title="API docs for GraphQL::Pagination::ActiveRecordRelationConnection"><code>GraphQL::Pagination::ActiveRecordRelationConnection</code></a> (which turns an <code class="language-plaintext highlighter-rouge">ActiveRecord::Relation</code> into a GraphQL-ready connection) uses <em>offset</em> as a cursor. This naive approach is sufficient for many cases, but it’s subject to a specific set of bugs.</p>
 
 <p>Let’s say you’re looking at the second page of 10 items (<code class="language-plaintext highlighter-rouge">LIMIT 10 OFFSET 10</code>). During that time, one of the items on page 1 is deleted. When you navigate to page 3 (<code class="language-plaintext highlighter-rouge">LIMIT 10 OFFSET 20</code>), you’ll actually <em>miss</em> one item. The entire list shifted “up” one position when a previous item was deleted.</p>
 

@@ -6,7 +6,7 @@
     
       <title>GraphQL - Arguments</title>
     
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700" rel="stylesheet" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="icon" href="/graphql-ruby-icon.png">
   </head>
@@ -19,7 +19,7 @@
           </a>
           <a href="/getting_started">Get Started</a>
           <a href="/guides">Guides</a>
-          <a href="/api-doc/1.12.14/">API</a>
+          <a href="/api-doc/1.13.2/">API</a>
           <a href="https://tinyletter.com/graphql-ruby">Newsletter</a>
           <a href="https://github.com/rmosolgo/graphql-ruby">Source Code</a>
           <a href="https://graphql.pro">Upgrade to Pro</a>
@@ -45,6 +45,7 @@
 </p>
 
 
+
 <h1 class="guide-header">Arguments</h1>
 <div class="guide-container">
   <p>Fields can take <strong>arguments</strong> as input. These can be used to determine the return value (eg, filtering search results) or to modify the application state (eg, updating the database in <code class="language-plaintext highlighter-rouge">MutationType</code>).</p>
@@ -52,7 +53,7 @@
 <p>Arguments are defined with the <code class="language-plaintext highlighter-rouge">argument</code> helper. These arguments are passed as <a href="https://robots.thoughtbot.com/ruby-2-keyword-arguments">keyword arguments</a> to the resolver method:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:search_posts</span><span class="p">,</span> <span class="p">[</span><span class="no">PostType</span><span class="p">],</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:category</span><span class="p">,</span> <span class="no">String</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span>
+  <span class="n">argument</span> <span class="ss">:category</span><span class="p">,</span> <span class="no">String</span>
 <span class="k">end</span>
 
 <span class="k">def</span> <span class="nf">search_posts</span><span class="p">(</span><span class="n">category</span><span class="p">:)</span>
@@ -110,7 +111,7 @@
 exposing another key to clients.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">PostType</span><span class="p">,</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:post_id</span><span class="p">,</span> <span class="no">ID</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">as: :id</span>
+  <span class="n">argument</span> <span class="ss">:post_id</span><span class="p">,</span> <span class="no">ID</span><span class="p">,</span> <span class="ss">as: :id</span>
 <span class="k">end</span>
 
 <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="nb">id</span><span class="p">:)</span>
@@ -121,7 +122,7 @@ exposing another key to clients.</p>
 <p>Provide a <code class="language-plaintext highlighter-rouge">prepare</code> function to modify or validate the value of an argument before the field’s resolver method is executed:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:posts</span><span class="p">,</span> <span class="p">[</span><span class="no">PostType</span><span class="p">],</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:start_date</span><span class="p">,</span> <span class="no">String</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">prepare: </span><span class="o">-&gt;</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">argument</span> <span class="ss">:start_date</span><span class="p">,</span> <span class="no">String</span><span class="p">,</span> <span class="ss">prepare: </span><span class="o">-&gt;</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1"># return the prepared argument.</span>
     <span class="c1"># raise a GraphQL::ExecutionError to halt the execution of the field and</span>
     <span class="c1"># add the exception's message to the `errors` key.</span>
@@ -136,7 +137,7 @@ exposing another key to clients.</p>
 <p>Arguments that are snake_cased will be camelized in the GraphQL schema. Using the example of:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:posts</span><span class="p">,</span> <span class="p">[</span><span class="no">PostType</span><span class="p">],</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:start_year</span><span class="p">,</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span>
+  <span class="n">argument</span> <span class="ss">:start_year</span><span class="p">,</span> <span class="no">Int</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
@@ -152,14 +153,14 @@ exposing another key to clients.</p>
 <p>To disable auto-camelization, pass <code class="language-plaintext highlighter-rouge">camelize: false</code> to the <code class="language-plaintext highlighter-rouge">argument</code> method.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:posts</span><span class="p">,</span> <span class="p">[</span><span class="no">PostType</span><span class="p">],</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:start_year</span><span class="p">,</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">camelize: </span><span class="kp">false</span>
+  <span class="n">argument</span> <span class="ss">:start_year</span><span class="p">,</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">camelize: </span><span class="kp">false</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
 <p>Furthermore, if your argument is already camelCased, then it will remain camelized in the GraphQL schema. However, the argument will be converted to snake_case when it is passed to the resolver method:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">field</span> <span class="ss">:posts</span><span class="p">,</span> <span class="p">[</span><span class="no">PostType</span><span class="p">],</span> <span class="ss">null: </span><span class="kp">false</span> <span class="k">do</span>
-  <span class="n">argument</span> <span class="ss">:startYear</span><span class="p">,</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span>
+  <span class="n">argument</span> <span class="ss">:startYear</span><span class="p">,</span> <span class="no">Int</span>
 <span class="k">end</span>
 
 <span class="k">def</span> <span class="nf">posts</span><span class="p">(</span><span class="n">start_year</span><span class="p">:)</span>
@@ -170,11 +171,11 @@ exposing another key to clients.</p>
 <p>Only certain types are valid for arguments:</p>
 
 <ul>
-  <li><a href="/api-doc/1.12.14/GraphQL/ScalarType" target="_blank" title="API docs for GraphQL::ScalarType"><code>GraphQL::ScalarType</code></a>, including built-in scalars (string, int, float, boolean, ID)</li>
-  <li><a href="/api-doc/1.12.14/GraphQL/EnumType" target="_blank" title="API docs for GraphQL::EnumType"><code>GraphQL::EnumType</code></a></li>
-  <li><a href="/api-doc/1.12.14/GraphQL/InputObjectType" target="_blank" title="API docs for GraphQL::InputObjectType"><code>GraphQL::InputObjectType</code></a>, which allows key-value pairs as input</li>
-  <li><a href="/api-doc/1.12.14/GraphQL/ListType" target="_blank" title="API docs for GraphQL::ListType"><code>GraphQL::ListType</code></a>s of a valid input type</li>
-  <li><a href="/api-doc/1.12.14/GraphQL/NonNullType" target="_blank" title="API docs for GraphQL::NonNullType"><code>GraphQL::NonNullType</code></a>s of a valid input type</li>
+  <li><a href="/api-doc/1.13.2/GraphQL/ScalarType" target="_blank" title="API docs for GraphQL::ScalarType"><code>GraphQL::ScalarType</code></a>, including built-in scalars (string, int, float, boolean, ID)</li>
+  <li><a href="/api-doc/1.13.2/GraphQL/EnumType" target="_blank" title="API docs for GraphQL::EnumType"><code>GraphQL::EnumType</code></a></li>
+  <li><a href="/api-doc/1.13.2/GraphQL/InputObjectType" target="_blank" title="API docs for GraphQL::InputObjectType"><code>GraphQL::InputObjectType</code></a>, which allows key-value pairs as input</li>
+  <li><a href="/api-doc/1.13.2/GraphQL/ListType" target="_blank" title="API docs for GraphQL::ListType"><code>GraphQL::ListType</code></a>s of a valid input type</li>
+  <li><a href="/api-doc/1.13.2/GraphQL/NonNullType" target="_blank" title="API docs for GraphQL::NonNullType"><code>GraphQL::NonNullType</code></a>s of a valid input type</li>
 </ul>
 
 </div>
